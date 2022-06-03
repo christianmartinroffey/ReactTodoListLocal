@@ -1,0 +1,24 @@
+.completed {
+text-decoration: line-through;
+opacity: 0.5;
+};
+
+body{
+    background-color: rgb(232, 232, 232);
+};
+
+.todo{
+display:flex;
+};
+
+
+.completed-btn{
+    all:unset;
+    display:none;
+    cursor:pointer;
+    color: grey
+};
+
+li:hover .completed-btn{
+    display: inline-block;
+}
