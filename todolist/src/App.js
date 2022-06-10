@@ -2,9 +2,7 @@ import './App.css';
 import React, { useState, useEffect } from 'react';
 import Form from './components/Form';
 import TodoList from './components/TodoList';
-import Hover from "./components/Hover";
-
-
+import PullAPI from './components/PullAPI';
 
 function App() {
 
@@ -14,6 +12,7 @@ function App() {
   const [todos, setTodos] = useState([]);
   const [status, setStatus] = useState("all");
   const [filteredTodos, setFilteredTodos] = useState([]);
+  const [planets, setPlanets] = useState([]);
 
   //use effect
 useEffect(() => {
@@ -31,20 +30,20 @@ const filterHandler = () => {
   break;
 }
 }
-//save to local storage
-const saveLocalStorage = () => {
-  localStorage.setItem("todos", JSON.stringify(todos));
-};
+// //save to local storage
+// const saveLocalStorage = () => {
+//   localStorage.setItem("todos", JSON.stringify(todos));
+// };
 
-const getLocalStorage = () => {
-  if(localStorage.getItem("todos") === null){
-    localStorage.setItem("todos", JSON.stringify([]));
-  }
-  else {
-    let todoLocal = JSON.parse(localStorage.getItem("todos")); 
-    setTodos(todoLocal);
-  }
-};
+// const getLocalStorage = () => {
+//   if(localStorage.getItem("todos") === null){
+//     localStorage.setItem("todos", JSON.stringify([]));
+//   }
+//   else {
+//     let todoLocal = JSON.parse(localStorage.getItem("todos")); 
+//     setTodos(todoLocal);
+//   }
+// };
 
   return (
     <div className="App bg-light container position-absolute top-50 start-50 translate-middle">
@@ -55,7 +54,7 @@ const getLocalStorage = () => {
             </h1>
             <Form inputText= {inputText} todos={todos} setTodos={setTodos} setInputText={setInputText} setStatus={setStatus} />
             <TodoList todos={todos} setTodos ={setTodos} filteredTodos={filteredTodos}/>
-            
+            <PullAPI planets= {planets} setPlanets={setPlanets}/>
         </div>
       </header>
     </div>

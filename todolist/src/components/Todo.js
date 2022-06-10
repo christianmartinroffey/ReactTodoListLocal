@@ -6,16 +6,16 @@ const Todo = ({text, todo, todos, setTodos}) => {
     const [isHovering, setIsHovering] = useState(false);
     
     const handleMouseOver = () => {
-        setIsHovering(true);
+        setIsHovering(false);
       };
     
       const handleMouseOut = () => {
-        setIsHovering(false);
+        setIsHovering(true);
       };
 
     const deleteHandler = () => {
         
-        setTodos(todos.filter(element => element.id !== todo.id))
+        setTodos(todos.filter((element) => element.id !== todo.id))
     };
 
     const completedHandler = () => {
@@ -32,13 +32,16 @@ const Todo = ({text, todo, todos, setTodos}) => {
 return (
 
 <div className="container pt-2 d-flex">
-    <li className={`todo-item form-control  ${todo.completed ? "completed" : ""}`} onMouseEnter={handleMouseOver} onMouseOut={handleMouseOut}>{text}</li>
-    <button onClick={completedHandler} className="input-group-text completed-btn m-2 bg-success">
-        {isHovering && <i className=" fas fa-check"></i>}
-    </button>
-    <button onClick={deleteHandler} className="input-group-text delete-btn m-2 bg-danger">
-    {isHovering && <i className="fas fa-regular fa-trash"></i>}
-    </button>
+    <li className={`todo-item form-control d-flex me-auto ${todo.completed ? "completed" : ""}`} onMouseEnter={handleMouseOver} onMouseOut={handleMouseOut}>{text}
+       <div className=" d-flex ms-auto">
+        <button onClick={completedHandler} className="input-group-text completed-btn m-2 justify-content-end">
+            {isHovering && <i className="fas fa-check"></i>}
+        </button>
+        <button onClick={deleteHandler} className="input-group-text delete-btn m-2 justify-content-end">
+        {isHovering && <i className="fas fa-regular fa-trash"></i>}
+        </button>
+        </div> 
+    </li>
 </div>
 );
 
