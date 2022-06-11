@@ -22,7 +22,7 @@ const Todo = ({text, todo, todos, setTodos}) => {
         setTodos(todos.map((item) => {
             if(item.id === todo.id){
             return {
-                ...item, completed: !item.completed
+                ...item, done: !item.done
             };
         }
             return item;
@@ -32,8 +32,9 @@ const Todo = ({text, todo, todos, setTodos}) => {
 return (
 
 <div className="container pt-2 d-flex">
-    <li className={`todo-item form-control d-flex me-auto ${todo.completed ? "completed" : ""}`} onMouseEnter={handleMouseOver} onMouseOut={handleMouseOut}>{text}
+    <li className={`todo-item form-control d-flex me-auto ${todo.done ? "completed" : ""}`} onMouseEnter={handleMouseOver} onMouseOut={handleMouseOut}>{text}
        <div className=" d-flex ms-auto">
+        <div className=" justify-content-start">{todo.label}</div>
         <button onClick={completedHandler} className="input-group-text completed-btn m-2 justify-content-end">
             {isHovering && <i className="fas fa-check"></i>}
         </button>
