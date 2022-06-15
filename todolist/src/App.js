@@ -2,6 +2,7 @@ import './App.css';
 import React, { useState, useEffect } from 'react';
 import Form from './components/Form';
 import TodoList from './components/TodoList';
+import TodoStats from './components/TodoStats';
 
 
 function App() {
@@ -86,6 +87,7 @@ const filterHandler = () => {
               Your Todo List
             </h1>
             <Form inputText= {inputText} todos={todos} setTodos={setTodos} setInputText={setInputText} setStatus={setStatus} />
+            <TodoStats todos={todos} setTodos ={setTodos}/>
             <TodoList todos={todos} setTodos ={setTodos} filteredTodos={filteredTodos}/>
         </div>
       </header>

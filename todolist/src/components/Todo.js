@@ -15,6 +15,7 @@ const Todo = ({text, todo, todos, setTodos}) => {
 
     const deleteHandler = () => {
         if(window.confirm("Are you sure you want to delete?"))
+        //returns array minus the one todo that is being deleted
         setTodos(todos.filter((element) => element.id !== todo.id))
     };
 
