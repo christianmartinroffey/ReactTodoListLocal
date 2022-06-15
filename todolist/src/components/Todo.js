@@ -6,7 +6,7 @@ const Todo = ({text, todo, todos, setTodos}) => {
     const [isHovering, setIsHovering] = useState(false);
     
     const handleMouseOver = () => {
-        setIsHovering(false);
+        setIsHovering(true);
       };
     
       const handleMouseOut = () => {
@@ -14,7 +14,7 @@ const Todo = ({text, todo, todos, setTodos}) => {
       };
 
     const deleteHandler = () => {
-        
+        if(window.confirm("Are you sure you want to delete?"))
         setTodos(todos.filter((element) => element.id !== todo.id))
     };
 

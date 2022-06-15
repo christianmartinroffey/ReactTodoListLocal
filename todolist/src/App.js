@@ -2,7 +2,7 @@ import './App.css';
 import React, { useState, useEffect } from 'react';
 import Form from './components/Form';
 import TodoList from './components/TodoList';
-import PullAPI from './components/PullAPI';
+
 
 function App() {
 
@@ -17,6 +17,7 @@ function App() {
 useEffect(() => {
   filterHandler()
 }, [todos, status]);
+
 
 useEffect(() => {
   
@@ -47,6 +48,9 @@ useEffect(() => {
   useEffect(()=>{
     console.log({todos})
   }, [todos])
+  
+  
+ 
 
 //functions
 const filterHandler = () => {
