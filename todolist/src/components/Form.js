@@ -2,16 +2,26 @@ import React, { useEffect } from "react";
 
 const Form = ({inputText, setInputText, todos, setTodos, setStatus}) => {
 
-    
-
     const inputTextHandler = (e) => {
         setInputText(e.target.value);
     }
 
     const submitTextHandler = (e) => {
         e.preventDefault();
-        setTodos([...todos, {text: inputText, done: false, id:Math.random()*1000}]);
+        setTodos([...todos, {label: inputText, done: false, id:Math.random()*1000}]);
         setInputText("");
+      
+        fetch('https://assets.breatheco.de/apis/fake/todos/user/christianmr', {
+        method: "PUT",
+        headers: {"Content-Type": "application/json" },
+        body: JSON.stringify(todos)  
+        
+    })
+    .then(() => {console.log(todos, "data sent")});
+    // .catch(error => {
+    //     //error handling
+    //     console.log(error, "this is an error with the POST request");
+    // });
     };
 
     const statusHandler = (e) => {

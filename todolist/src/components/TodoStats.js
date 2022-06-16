@@ -1,13 +1,17 @@
-import React from 'react'
+import React, { useState } from 'react';
 
+let text = "a string";
 
-function TodoStats(todos, setTodos) {
+function TodoStats( {todos} ) {
+  if(todos === 0){
+    return <h2>{text}</h2>
+  }
     console.log(todos.length, "checking length")
   return (
     <div className='todo-stats'>
-      <h4>{todos.length}</h4>
+      <h4>Total todos: {(todos.length)}</h4>
     </div>
   )
 }
 
-export default TodoStats
+export default TodoStats;

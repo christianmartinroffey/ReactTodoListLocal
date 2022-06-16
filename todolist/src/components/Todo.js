@@ -1,7 +1,8 @@
+import { filter } from "fontawesome";
 import React, { useState } from "react";
 
 
-const Todo = ({text, todo, todos, setTodos}) => {
+const Todo = ({text, todo, todos, setTodos, todoindex}) => {
 
     const [isHovering, setIsHovering] = useState(false);
     
@@ -14,21 +15,40 @@ const Todo = ({text, todo, todos, setTodos}) => {
       };
 
     const deleteHandler = () => {
-        if(window.confirm("Are you sure you want to delete?"))
-        //returns array minus the one todo that is being deleted
-        setTodos(todos.filter((element) => element.id !== todo.id))
+        console.log(todoindex, "indextodelete")
+        const filteredTodos = todos.filter((_, index) => index !== todoindex)
+        console.log(filteredTodos, "filtered")
+        if(window.confirm("Are you sure you want to delete?")){
+            setTodos(filteredTodos);
+            fetch('https://assets.breatheco.de/apis/fake/todos/user/christianmr', {
+                method: "PUT",
+                headers: {"Content-Type": "application/json" },
+                body: JSON.stringify(filteredTodos)  
+                
+            })
+            .then(() => {console.log(filteredTodos, "filteredTodos sent")});
+        }
+        
     };
 
     const completedHandler = () => {
-        setTodos(todos.map((item) => {
-            if(item.id === todo.id){
+        const filteredComplete = todos.map((item, index ) => {
+            if(index === todoindex){
             return {
                 ...item, done: !item.done
             };
         }
             return item;
+        });
+        setTodos(filteredComplete);
+        fetch('https://assets.breatheco.de/apis/fake/todos/user/christianmr', {
+            method: "PUT",
+            headers: {"Content-Type": "application/json" },
+            body: JSON.stringify(filteredComplete)  
+            
         })
-    )};
+        .then(() => {console.log(filteredComplete, "filteredcomplete sent")});
+    };
 
 return (
 
@@ -39,7 +59,7 @@ return (
         <button onClick={completedHandler} className="input-group-text completed-btn m-2 justify-content-end">
             {isHovering && <i className="fas fa-check"></i>}
         </button>
-        <button onClick={deleteHandler} className="input-group-text delete-btn m-2 justify-content-end">
+        <button onClick={deleteHandler}  className="input-group-text delete-btn m-2 justify-content-end">
         {isHovering && <i className="fas fa-regular fa-trash"></i>}
         </button>
         </div> 
