@@ -15,7 +15,7 @@ const Hover = () => {
     <div>
       <div>
         <div onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
-          Hover me
+          
         </div>
 
         {isHovering && <h2>Hello world</h2>}

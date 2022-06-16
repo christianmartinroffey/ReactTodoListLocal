@@ -2,8 +2,7 @@ import './App.css';
 import React, { useState, useEffect } from 'react';
 import Form from './components/Form';
 import TodoList from './components/TodoList';
-import Hover from "./components/Hover";
-
+import Counter from './components/TodoStats';
 
 
 function App() {
@@ -20,6 +19,38 @@ useEffect(() => {
   filterHandler()
 }, [todos, status]);
 
+/// GET request
+
+useEffect(() => {
+  
+    fetch('https://assets.breatheco.de/apis/fake/todos/user/christianmr', {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+    .then(resp => {
+        console.log(resp.ok); // will be true if the response is successfull
+        console.log(resp.status); // the status code = 200 or code = 400 etc.
+        // console.log("this is the response",resp.text()); // will try return the exact result as string
+        return resp.json(); // (returns promise) will try to parse the result as json as return a promise that you can .then for results
+    })
+    .then(data => {
+        //here is were your code should start after the fetch finishes
+        setTodos(data); //this will print on the console the exact object received from the server
+       console.log(data, "data");
+      })
+    .catch(error => {
+        //error handling
+        console.log(error, "this is an error");
+    });
+     
+  },[]);
+ 
+  useEffect(()=>{
+    console.log({todos})
+  }, [todos])
+  
 //functions
 const filterHandler = () => {
   switch(status){
@@ -31,20 +62,20 @@ const filterHandler = () => {
   break;
 }
 }
-//save to local storage
-const saveLocalStorage = () => {
-  localStorage.setItem("todos", JSON.stringify(todos));
-};
+// //save to local storage
+// const saveLocalStorage = () => {
+//   localStorage.setItem("todos", JSON.stringify(todos));
+// };
 
-const getLocalStorage = () => {
-  if(localStorage.getItem("todos") === null){
-    localStorage.setItem("todos", JSON.stringify([]));
-  }
-  else {
-    let todoLocal = JSON.parse(localStorage.getItem("todos")); 
-    setTodos(todoLocal);
-  }
-};
+// const getLocalStorage = () => {
+//   if(localStorage.getItem("todos") === null){
+//     localStorage.setItem("todos", JSON.stringify([]));
+//   }
+//   else {
+//     let todoLocal = JSON.parse(localStorage.getItem("todos")); 
+//     setTodos(todoLocal);
+//   }
+// };
 
   return (
     <div className="App bg-light container position-absolute top-50 start-50 translate-middle">
@@ -54,8 +85,8 @@ const getLocalStorage = () => {
               Your Todo List
             </h1>
             <Form inputText= {inputText} todos={todos} setTodos={setTodos} setInputText={setInputText} setStatus={setStatus} />
+            <Counter todos={todos} setTodos ={setTodos}/>
             <TodoList todos={todos} setTodos ={setTodos} filteredTodos={filteredTodos}/>
-            
         </div>
       </header>
     </div>

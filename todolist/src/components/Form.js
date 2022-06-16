@@ -8,9 +8,20 @@ const Form = ({inputText, setInputText, todos, setTodos, setStatus}) => {
 
     const submitTextHandler = (e) => {
         e.preventDefault();
-///use a timestamp instead
-        setTodos([...todos, {text: inputText, completed: false, id:Math.random()*1000}]);
+        setTodos([...todos, {label: inputText, done: false, id:Math.random()*1000}]);
         setInputText("");
+      
+        fetch('https://assets.breatheco.de/apis/fake/todos/user/christianmr', {
+        method: "PUT",
+        headers: {"Content-Type": "application/json" },
+        body: JSON.stringify(todos)  
+        
+    })
+    .then(() => {console.log(todos, "data sent")});
+    // .catch(error => {
+    //     //error handling
+    //     console.log(error, "this is an error with the POST request");
+    // });
     };
 
     const statusHandler = (e) => {
@@ -29,7 +40,7 @@ const Form = ({inputText, setInputText, todos, setTodos, setStatus}) => {
                 </button>
                 <div className="select">
                     <select onChange={statusHandler} name="todos" className="filter-todo input-group-text p-2 m-3">
-                        <option value="all">All todos</option>
+                        <option value="all">All</option>
                         <option value="completed">Completed</option>
                         <option value="incompleted">Incomplete</option>
                     </select>
